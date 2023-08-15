@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise</title>
+</head>
+<body>
+<h1 th:align="center" th:text="'Exercise: '+${exercise.getNameExercise()}"></h1>
+<hr>
+<br/>
+<h2>Description:</h2>
+<p th:text="${exercise.getDescriptionExercise()}"></p>
+<hr>
+<form th:action="@{/exercises/editExercise/{id}(id=${exercise.getId_exercise()})}">
+    <!-- <button>Delete sportsman</button> -->
+    <input type="submit" value="Edit exercise"/>
+</form>
+<form th:action="@{/exercises/{id}(id=${exercise.getId_exercise()})}" th:method="delete">
+    <!-- <button>Delete sportsman</button> -->
+    <input type="submit" value="Delete exercise"/>
+</form>
+<br/>
+<hr/>
+<table>
+    <tr>
+        <th>Description</th>
+        <th>Count</th>
+        <th>Count Set</th>
+    </tr>
+    <tr th:each="difficult : ${difficults}">
+        <td th:text="${difficult.getDescriptionDifficulty()}"></td>
+        <td th:text="${difficult.getNumberOfRepetitions()}"></td>
+        <td th:text="${difficult.getNumberOfSets()}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

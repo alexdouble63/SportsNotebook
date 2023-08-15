@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of exercises</title>
+</head>
+<body>
+<h1 align="center"> List of exercises</h1>
+<hr>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <tr th:each="exercise : ${exercises}">
+    <td>
+      <a th:href="@{/exercises/{id}(id=${exercise.getId_exercise()})}" th:text="${exercise.getNameExercise()}"></a>
+    </td>
+    <td th:text="${exercise.getDescriptionExercise}"></td>
+  </tr>
+
+
+
+</table>
+<br>
+<hr>
+<form th:action="@{exercises/newExercise}">
+  <button>Add new exercise</button>
+</form>
+
+</body>
+</html>

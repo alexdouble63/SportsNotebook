@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sportsmen</title>
+</head>
+<body>
+    <h1 align="center"> List of sportsmen</h1>
+    <hr>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Height</th>
+            <th>Weight</th>
+        </tr>
+        <tr th:each="sportsman : ${sportsmen}">
+            <td>
+                <a th:href="@{/sportsmen/{id}(id=${sportsman.getId_sportsman()})}" th:text="${sportsman.getName}"></a>
+            </td>
+            <td th:text="${sportsman.getAge}"></td>
+            <td th:text="${sportsman.getHeight}"></td>
+            <td th:text="${sportsman.getWeight}"></td>
+        </tr>
+
+
+
+    </table>
+    <br>
+    <hr>
+    <form th:action="@{sportsmen/newSportsman}">
+        <button>Add new sportsman</button>
+    </form>
+
+</body>
+</html>

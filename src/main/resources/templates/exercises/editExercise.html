@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit exercise</title>
+</head>
+<body>
+<h1 th:align="center">Edit exercise</h1>
+<hr/>
+<form th:action="@{/exercises/{id}(id=${exercise.getId_exercise()})}" th:object="${exercise}" th:method="put">
+  <!-- <p>Name exercise: <input type="text" th:field="*{nameExercise}" th:text="*{nameExercise}"/></p>
+  <p>Description: <input type="text" th:field="*{descriptionExercise}" th:text="*{descriptionExercise}"/></p> -->
+
+  <p>Name exercise: <input type="text" th:field="*{nameExercise}" /></p>
+  <p>Description: <input type="text" th:field="*{descriptionExercise}"/></p>
+  <p><input type="submit" value="Save edited exercise"/></p>
+</form>
+
+</body>
+</html>

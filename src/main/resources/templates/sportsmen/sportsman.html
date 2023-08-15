@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sportsman</title>
+</head>
+<body>
+    <h1 align="center" th:text="${sportsman.getName()}"></h1>
+    <hr>
+    <br/>
+    <h2>Parameters:</h2>
+    <p th:text="'Age: '+${sportsman.getAge()}"></p>
+    <p th:text="'Height: '+${sportsman.getHeight()}"></p>
+    <p th:text="'Weight: '+${sportsman.getWeight()}"></p>
+    <hr>
+    <form th:action="@{/sportsmen/editSportsman/{id}(id=${sportsman.getId_sportsman()})}">
+        <!-- <button>Delete sportsman</button> -->
+        <input type="submit" value="Edit sportsman"/>
+    </form>
+    <form th:action="@{/sportsmen/{id}(id=${sportsman.getId_sportsman()})}" th:method="delete">
+        <!-- <button>Delete sportsman</button> -->
+        <input type="submit" value="Delete sportsman"/>
+    </form>
+
+</body>
+</html>
