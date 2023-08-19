@@ -1,10 +1,14 @@
 package com.alexdouble.sportsnotebook.controllers;
 
+import com.alexdouble.sportsnotebook.models.Performance;
 import com.alexdouble.sportsnotebook.models.Sportsman;
+import com.alexdouble.sportsnotebook.services.ExercisesService;
 import com.alexdouble.sportsnotebook.services.SportsmenService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -12,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class SportsmenController {
 
     private final SportsmenService sportsmenService;
+    private final ExercisesService exercisesService;
 
     @Autowired
-    public SportsmenController(SportsmenService sportsmenService) {
+    public SportsmenController(SportsmenService sportsmenService, ExercisesService exercisesService) {
         this.sportsmenService = sportsmenService;
+        this.exercisesService = exercisesService;
     }
 
     @GetMapping
@@ -27,17 +33,23 @@ public class SportsmenController {
     @GetMapping("/{id}")
     public String getSportsmanById(@PathVariable int id, Model model){
         model.addAttribute("sportsman",sportsmenService.findOne(id));
+        //model.addAttribute("newPerformance", new Performance());
+        model.addAttribute("listExercises",exercisesService.findAll());
         return "/sportsmen/sportsman";
     }
 
     @GetMapping("/newSportsman")
-    public String inputNewSportsman(Model model){
+    public String inputNewSportsmperformancean(Model model){
         model.addAttribute("sportsman",new Sportsman());
         return "/sportsmen/newSportsman";
     }
 
     @PostMapping
-    public String addNewSportsman(@ModelAttribute Sportsman sportsman){
+    public String addNewSportsman(@ModelAttribute @Valid Sportsman sportsman,
+                                  BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/sportsmen/newSportsman";
+        }
         sportsmenService.save(sportsman);
         return "redirect:/sportsmen";
     }
@@ -55,7 +67,11 @@ public class SportsmenController {
     }
 
     @PutMapping("/{id}")
-    public String saveEditedSportsman(@PathVariable int id, @ModelAttribute Sportsman sportsman){
+    public String saveEditedSportsman(@PathVariable int id, @ModelAttribute @Valid Sportsman sportsman,
+                                      BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "/sportsmen/editSportsman";
+        }
         sportsmenService.update(id,sportsman);
         return "redirect:/sportsmen/"+sportsman.getId_sportsman();
 

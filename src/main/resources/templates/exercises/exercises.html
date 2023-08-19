@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List of exercises</title>
+    <title>Basic movements</title>
 </head>
 <body>
-<h1 align="center"> List of exercises</h1>
+<h1 align="center">Basic movements</h1>
 <hr>
 <table>
   <tr>
-    <th>Name</th>
-    <th>Description</th>
+    <th>Name movement</th>
+    <th>Description movement</th>
   </tr>
   <tr th:each="exercise : ${exercises}">
     <td>
@@ -25,7 +25,7 @@
 <br>
 <hr>
 <form th:action="@{exercises/newExercise}">
-  <button>Add new exercise</button>
+  <button>Add new basic movement</button>
 </form>
 
 </body>

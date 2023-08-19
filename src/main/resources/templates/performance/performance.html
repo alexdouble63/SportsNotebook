@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Performance</title>
+</head>
+<body>
+<h1 th:align="center">Result performance</h1>
+
+<tr th:each="diff:${difficulty}">
+    <td> <!--th:text="${diff.getDescriptionDifficulty()}">-->
+        <a th:href="@{/performance/allForDifficalty(idSportsman=${sportsman.getId_sportsman()},
+        idDiff=${diff.getIdDifficulty()})}" th:text="${diff.getDescriptionDifficulty()}"></a>
+    </td>
+    <br/>
+
+</tr>
+
+</body>
+</html>

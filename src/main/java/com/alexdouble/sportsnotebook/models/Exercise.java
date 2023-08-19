@@ -1,6 +1,7 @@
 package com.alexdouble.sportsnotebook.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class Exercise {
     }
 
     @Column(name = "name")
+    @NotEmpty (message = "Name movement should not be empty")
+
     private String nameExercise;
 
     @Column(name = "description")

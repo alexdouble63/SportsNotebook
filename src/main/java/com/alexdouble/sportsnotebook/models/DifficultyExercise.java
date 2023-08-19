@@ -1,6 +1,10 @@
 package com.alexdouble.sportsnotebook.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+
+import java.util.List;
 
 @Entity
 @Table (name = "difficultyexercise")
@@ -16,13 +20,19 @@ public class DifficultyExercise {
     private Exercise ownerExercise;
 
     @Column(name = "descriptiondifficulty")
+    @NotEmpty(message = "Step description should not be empty")
     private String descriptionDifficulty;
 
     @Column(name = "numberofrepetitions")
+    @Min(value=0,message = "oal counts should be greater than 0")
     private int numberOfRepetitions;
 
     @Column(name = "numberofsets")
+    @Min(value=0,message = "Goal sets should be greater than 0")
     private int numberOfSets;
+
+    @OneToMany(mappedBy = "ownerDifficulty")
+    List<Performance> performanceList;
 
     public DifficultyExercise() {
     }

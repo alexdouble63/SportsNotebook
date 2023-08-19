@@ -2,37 +2,56 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Exercise</title>
+    <title>Basic movement</title>
 </head>
 <body>
-<h1 th:align="center" th:text="'Exercise: '+${exercise.getNameExercise()}"></h1>
+<h1 th:align="center" th:text="'Basic movement: '+${exercise.getNameExercise()}"></h1>
 <hr>
 <br/>
-<h2>Description:</h2>
+<h2>Description movement:</h2>
 <p th:text="${exercise.getDescriptionExercise()}"></p>
 <hr>
 <form th:action="@{/exercises/editExercise/{id}(id=${exercise.getId_exercise()})}">
-    <!-- <button>Delete sportsman</button> -->
-    <input type="submit" value="Edit exercise"/>
+   <input type="submit" value="Edit movement"/>
 </form>
 <form th:action="@{/exercises/{id}(id=${exercise.getId_exercise()})}" th:method="delete">
-    <!-- <button>Delete sportsman</button> -->
-    <input type="submit" value="Delete exercise"/>
+    <input type="submit" value="Delete movement"/>
 </form>
 <br/>
 <hr/>
+<h1 th:align="center" th:text="'Steps for master of '+${exercise.getNameExercise()}"></h1>
+
+<h2 th:align="center" th:text="'Training goals'"></h2>
+
 <table>
     <tr>
         <th>Description</th>
-        <th>Count</th>
-        <th>Count Set</th>
+        <th>Goal counts</th>
+        <th>Goal sets</th>
     </tr>
     <tr th:each="difficult : ${difficults}">
         <td th:text="${difficult.getDescriptionDifficulty()}"></td>
         <td th:text="${difficult.getNumberOfRepetitions()}"></td>
         <td th:text="${difficult.getNumberOfSets()}"></td>
+        <td><form th:action="@{/difficulty/delete/{id}/{iddiff}(id=${difficult.getOwnerExercise().getId_exercise()}, iddiff=${difficult.getIdDifficulty()})}"  th:method="delete">
+                <input type="submit" value="Delete step"/>
+            </form>
+        </td>
     </tr>
 </table>
+<hr/>
+<h2 th:align="center">Add new step</h2>
+<form th:action="@{/difficulty/{idExercise}(idExercise=${exercise.getId_exercise()})}" th:object="${newDiffcult}" th:method="post">
+    <p>Description: <input type="text" th:field="*{descriptionDifficulty}"/></p>
+    <div style="color: red" th:if="${#fields.hasErrors('descriptionDifficulty')}" th:errors="*{descriptionDifficulty}"></div></div>
+    <p>Count repetitions: <input type="text" th:field="*{numberOfRepetitions}"/></p>
+    <div style="color: red" th:if="${#fields.hasErrors('numberOfRepetitions')}" th:errors="*{numberOfRepetitions}"></div></div>
+    <p>Count sets: <input type="text" th:field="*{numberOfSets}"/></p>
+    <div style="color: red" th:if="${#fields.hasErrors('numberOfSets')}" th:errors="*{numberOfSets}"></div></div>
+    <p><input type="submit" value="Save new step"/></p>
+</form>
+
+
 
 </body>
 </html>

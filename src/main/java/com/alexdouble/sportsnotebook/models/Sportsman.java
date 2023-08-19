@@ -1,6 +1,11 @@
 package com.alexdouble.sportsnotebook.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Entity
 @Table(name="sportsman")
@@ -11,13 +16,22 @@ public class Sportsman {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_sportsman;
     @Column(name = "name")
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min=3, max=50, message = "Name should be between 3 and 50 characters")
     private String name;
     @Column(name = "age")
+    @Min(value=0,message = "Age should be greater than 0")
     private int age;
     @Column(name = "height")
+    @Min(value=0,message = "Height should be greater than 0")
     private int height;
     @Column(name = "weight")
+    @Min(value=0,message = "Weight should be greater than 0")
     private float weight;
+
+    @OneToMany (mappedBy = "ownerSportsman")
+    private List<Performance> performanceList;
+
 
     public Sportsman() {
     }

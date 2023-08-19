@@ -22,5 +22,32 @@
         <input type="submit" value="Delete sportsman"/>
     </form>
 
+<hr/>
+    <h2 th:align="center">List of exercises</h2>
+    <tr th:each="exercise : ${listExercises}">
+        <td>
+            <a th:href="@{/performance(idSportsman=${sportsman.getId_sportsman()},
+            idExercise=${exercise.getId_exercise()})}" th:text="${exercise.getNameExercise()}"></a>
+        </td>
+        <!--<td th:text="'Name exercise: '+${exercise.getNameExercise()}"></td>-->
+        <br/>
+    </tr>
+
+<!--<h2 th:align="center">List of performance</h2>
+    <table>
+        <tr>
+            <th>Difficulty</th>
+            <th>Date</th>
+            <th>Count</th>
+        </tr>
+
+    </table>
+    <hr/>
+    <h2 th:align="center">Add new performance</h2>
+    <form th:action="@{/performance/{idSportsman}(idSportsman=${sportsman.getId_sportsman()})}" th:object="${newPerformance}" th:method="post">
+        <p>Count <input type="text" th:field="*{countPerformance}"/></p>
+        <p><input type="submit" value="Save new performance"/></p>
+    </form> -->
+
 </body>
 </html>

@@ -2,15 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>New exercise</title>
+  <title>New basic movement</title>
 </head>
 <body>
-<h1 th:align="center">Add new exercise</h1>
+<h1 th:align="center">Add new movement</h1>
 <hr/>
 <form th:action="@{/exercises}" th:object="${exercise}" th:method="post">
-  <p>Name exercise: <input type="text" th:field="*{nameExercise}"/></p>
+  <p>Name movement: <input type="text" th:field="*{nameExercise}"/></p>
+  <div style="color: red" th:if="${#fields.hasErrors('nameExercise')}" th:errors="*{nameExercise}"></div></div>
   <p>Description: <input type="text" th:field="*{descriptionExercise}"/></p>
-  <p><input type="submit" value="Save new exercise"/></p>
+  <p><input type="submit" value="Save new movement"/></p>
 </form>
 </body>
 </html>

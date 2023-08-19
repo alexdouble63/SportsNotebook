@@ -9,9 +9,13 @@
     <hr/>
     <form th:action="@{/sportsmen}" th:object="${sportsman}" th:method="post">
         <p>Name: <input type="text" th:field="*{name}"/></p>
+        <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         <p>Age: <input type="text" th:field="*{age}"/></p>
+        <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
         <p>Height: <input type="text" th:field="*{height}"/></p>
+        <div style="color: red" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
         <p>Weight: <input type="text" th:field="*{weight}"/></p>
+        <div style="color: red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></div>
         <p><input type="submit" value="Save new sportsman"/></p>
     </form>
 </body>

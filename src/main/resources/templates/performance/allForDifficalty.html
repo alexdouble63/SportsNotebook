@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List difficalty result</title>
+</head>
+<body>
+<h1 th:align="center"> List difficalty result </h1>
+<h2 th:align="center">Add new difficalty</h2>
+
+<form th:action="@{/performance/addNewResult(idSportsman=${idSportsman.getId_sportsman()},
+                idDifficalty=${idDifficalty.getIdDifficulty()})}" th:object="${newPerformance}" th:method="post">
+    <p>Count repetitions: <input type="text" th:field="*{countPerformance}"/></p>
+    <div style="color: red" th:if="${#fields.hasErrors('countPerformance')}" th:errors="*{countPerformance}"></div>
+    <p><input type="submit" value="Save"/></p>
+
+</form>
+
+<br/>
+<h2 th:align="center">List of result</h2>
+<table>
+    <tr>
+        <th>Name performance:</th>
+        <th>Count</th>
+        <th>Date</th>
+
+    </tr>
+<tr th:each="performance: ${listPerformance}">
+    <td th:text="${performance.getOwnerDifficulty().getDescriptionDifficulty()}" />
+    <br/>
+    <td th:text="${performance.getCountPerformance()}"/>
+    <br/>
+    <td th:text="${performance.getDate()}"/>
+    <td><form th:action="@{/performance/deleteResult(idSportsman=${idSportsman.getId_sportsman()},
+                idDifficalty=${idDifficalty.getIdDifficulty()},
+                idPerformance=${performance.getId()})}"  th:method="delete">
+                <input type="submit" value="Delete performance"/>
+        </form>
+    </td>
+
+</tr>
+</table>
+
+<hr/>
+
+
+</body>
+</html>

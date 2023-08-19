@@ -4,6 +4,7 @@ package com.alexdouble.sportsnotebook.services;
 import com.alexdouble.sportsnotebook.models.DifficultyExercise;
 import com.alexdouble.sportsnotebook.models.Exercise;
 import com.alexdouble.sportsnotebook.models.Sportsman;
+import com.alexdouble.sportsnotebook.repositories.DifficultyRepository;
 import com.alexdouble.sportsnotebook.repositories.ExercisesRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ public class ExercisesService {
     private final ExercisesRepository exercisesRepository;
 
     @Autowired
-    public ExercisesService(ExercisesRepository exercisesRepository) {
+    public ExercisesService(ExercisesRepository exercisesRepository){//, DifficultyRepository difficultyRepository) {
         this.exercisesRepository = exercisesRepository;
+        //this.difficultyRepository = difficultyRepository;
     }
 
     public List<Exercise> findAll(){
@@ -30,8 +32,6 @@ public class ExercisesService {
     }
     public Exercise findOne(int id){
         Optional<Exercise> foundExercise = exercisesRepository.findById(id);
-        //List<DifficultyExercise> difficultyExerciseList =
-        //        foundExercise.get().getDifficultyExerciseList();
         return foundExercise.orElse(null);
     }
 
@@ -59,4 +59,5 @@ public class ExercisesService {
             return Collections.emptyList();
         }
     }
+
 }

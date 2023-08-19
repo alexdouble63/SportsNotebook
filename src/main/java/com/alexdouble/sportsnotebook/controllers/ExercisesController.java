@@ -3,9 +3,12 @@ package com.alexdouble.sportsnotebook.controllers;
 import com.alexdouble.sportsnotebook.models.DifficultyExercise;
 import com.alexdouble.sportsnotebook.models.Exercise;
 import com.alexdouble.sportsnotebook.services.ExercisesService;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanInfoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +35,7 @@ public class ExercisesController {
         List<DifficultyExercise> difficultyExerciseList = exercisesService.getDifficultyListByExerciseId(id);
         model.addAttribute("exercise", exercisesService.findOne(id));
         model.addAttribute("difficults", difficultyExerciseList);
+        model.addAttribute("newDiffcult", new DifficultyExercise());
         return "/exercises/exercise";
     }
 
@@ -42,7 +46,11 @@ public class ExercisesController {
     }
 
     @PostMapping
-    public String addNewExercise(@ModelAttribute Exercise exercise){
+    public String addNewExercise(@ModelAttribute @Valid Exercise exercise,
+                                 BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "/exercises/newExercise";
+        }
         exercisesService.save(exercise);
         return "redirect:/exercises";
     }
@@ -60,9 +68,14 @@ public class ExercisesController {
     }
 
     @PutMapping("/{id}")
-    public String saveEditedExercise(@PathVariable int id, @ModelAttribute Exercise exercise){
+    public String saveEditedExercise(@PathVariable int id, @ModelAttribute @Valid Exercise exercise,
+                                     BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "/exercises/editExercise";
+        }
         exercisesService.update(id,exercise);
         return "redirect:/exercises/"+exercise.getId_exercise();
 
     }
+
 }
